@@ -1,0 +1,55 @@
+@fieldWidth: 1000px;
+@fieldHeight: 600px;
+@fieldBGColor: black;
+@fieldBorderWidth: 20px;
+@fieldBorderColor: gray;
+@playerWidth: 25px;
+@playerHeight: 100px;
+@playerBGColor: white;
+@ballHeight: 25px;
+@ballWidth: 25px;
+@ballBGColor: white;
+@pongContainerLeft: 50px;
+@pongContainerTop: 50px;
+
+
+#pongContainer {
+   position: fixed;
+   left: @pongContainerLeft;
+   top: @pongContainerTop;
+   width: @fieldWidth;
+   height: @fieldHeight;
+   background-color: @fieldBGColor;
+   border: @fieldBorderWidth solid @fieldBorderColor;
+}
+
+#leftPlayer, #rightPlayer {
+   background-color: @playerBGColor;
+   width: @playerWidth;
+   height: @playerHeight;
+}
+
+#leftPlayer {
+   position: absolute;
+   left: 0px;
+   top: (@fieldHeight / 2) - (@playerHeight / 2);
+}
+
+#rightPlayer {
+   position: absolute;
+   left: @fieldWidth - @playerWidth;
+   top: (@fieldHeight / 2) - (@playerHeight / 2);
+}
+
+#ball { 
+   background-color: @ballBGColor;
+   width: @ballWidth;
+   height: @ballHeight;
+   position: absolute;
+   left: (@fieldWidth / 2) - (@ballWidth / 2);
+   top: (@fieldHeight / 2) - (@ballHeight / 2);
+}
+
+#rightGoal {
+   
+}

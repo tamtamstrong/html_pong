@@ -29,13 +29,13 @@ Pong.Bat = function(x, y, width, height, speed) {
 Pong.Game = function(tablewidth, tableheight, speed) {
  this.tablewidth = tablewidth;
  this.tableheight = tableheight;
- this.batwidth = tablewidth / 20;
- this.batheight = tableheight / 20;
+ this.batwidth = tablewidth / 40;
+ this.batheight = tableheight / 6;
  this.ballradius = tablewidth / 30;
  this.speed = speed;
 
  this.bats = { 
-  left: new Pong.Bat(0, 0, this.batwidth, this.batheight, this/speed),
+  left: new Pong.Bat(0, 0, this.batwidth, this.batheight, this.speed),
   right: new Pong.Bat(this.tablewidth - this.batwidth, this.tableheight - this.batheight, this.batwidth, this.batheight, this.speed)
  }
  

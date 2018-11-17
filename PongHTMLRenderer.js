@@ -1,12 +1,15 @@
 var Pong = Pong || {};
 
-Pong.renderHTML = function(pong, window, container) {
- this.pong = pong;
- this.container = container;
- 
+Pong.htmlRenderer = function(pongGame, window, container) {
+  
+  this.pong = pongGame;
+  this.container = container;
+  
+  this.container.css({"width": pongGame.tablewidth, "height": pongGame.tableheight, "position": "absolute"});
+    
+
  this.render = function () {
     // render the table
-    var table = window.document.createElement("DIV");
     // render the bats
     // render the ball
  };

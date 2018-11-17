@@ -1,21 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
    <head>
+      <meta charset="utf-8"/>
       <title>Pong</title>
-      <link rel="stylesheet/less" type="text/css" href="pong.less" />
-      <script src="less-1.7.0.min.js" type="text/javascript"></script>      
+      <script src="jquery-2.1.1.min.js" type="text/javascript"></script>
    <head>
    <body>
       <div id="mainDiv">
-	 <div id="settings"></div>
-         <div id="pongContainer"></div>
+	      <div id="settings"></div>
+        <div id="pongContainer"></div>
       </div>
       <script src="pong.js" type="text/javascript"></script>
+      <script src="PongHTMLRenderer.js" type="text/javascript"></script>
       <script>
-	var pong = new Pong.Game(800, 300, 2);
-        window.addEventListener('keydown', pong.keyDown, false);
-        window.addEventListener('keyup', pong.keyUp, false);
-	var pongRenderer = new PongHtmlRenderer(pong, window, 'pongContainer');
-        window.setInterval(pongRenderer.render, 100);
+        $(function() {        
+        	var pong = new Pong.Game(800, 300, 2);
+          window.addEventListener('keydown', pong.keyDown, false);
+          window.addEventListener('keyup', pong.keyUp, false);
+        	var pongRenderer = new Pong.htmlRenderer(pong, window, $('#pongContainer'));
+          window.setInterval(pongRenderer.render, 100);
+        });
       </script>
    </body>   
 </html>

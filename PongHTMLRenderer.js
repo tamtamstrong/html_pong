@@ -21,6 +21,13 @@ Pong.htmlRenderer = function(pongGame, window, container) {
       "position": "absolute", "background-color": "red", "z-index": "2"});
   this.container.append(this.rightBat);
 
+  this.ball = $("<div></div>");
+  this.ball.css({"width": pongGame.balldiameter, "height": pongGame.balldiameter, "border-radius": "50%",
+      "position": "absolute", "z-index": "3", "background-color": "white",
+      "top": pongGame.tableheight / 2 - pongGame.balldiameter / 2, 
+      "left": pongGame.tablewidth / 2 - pongGame.balldiameter / 2 });
+  this.container.append(this.ball);
+
  this.render = function () {
     // render the table
     // render the bats

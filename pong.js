@@ -33,6 +33,8 @@ Pong.Game = function(tablewidth, tableheight, speed) {
  this.batheight = tableheight / 6;
  this.ballradius = tablewidth / 30;
  this.speed = speed;
+ this.score = [0, 0];
+ this.ballDirection = [0, 0]; // [x component, y component] of direction vector
 
  this.bats = { 
   left: new Pong.Bat(0, 0, this.batwidth, this.batheight, this.speed),
@@ -42,5 +44,24 @@ Pong.Game = function(tablewidth, tableheight, speed) {
  this.table = new Pong.Table(this.tablewidth, this.tableheight);
  
  this.ball = new Pong.Ball(this.tablewidth / 2, this.tableheight / 2, this.ballradius, this.speed);
+
+ this.start = function() { 
+   this.score = [0, 0];
+   this.ballDirection = [1, 0];
+ }
+
+ this.play = function() {
+   // move bats
+   // move ball
+   // check for goal    
+ }
+
+ this.keyDown = function(evt) {
+   // process key press
+ }
+
+ this.keyUp = function(evt) {
+  // process key release
+ }
 
 }

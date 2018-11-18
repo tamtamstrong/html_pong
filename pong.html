@@ -19,6 +19,7 @@
           window.addEventListener('keyup', pong.keyUp, false);
         	var pongRenderer = new Pong.htmlRenderer(pong, window, $('#pongContainer'));
           window.setInterval(pongRenderer.render, 100);
+          pong.start();
         });
       </script>
    </body>   

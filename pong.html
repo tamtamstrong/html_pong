@@ -20,6 +20,7 @@
         	var pongRenderer = new Pong.htmlRenderer(pong, window, $('#pongContainer'));
           window.setInterval(pongRenderer.render, 100);
           pong.start();
+          window.setInterval(pong.play, 100);
         });
       </script>
    </body>   

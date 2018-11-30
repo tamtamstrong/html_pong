@@ -27,41 +27,72 @@ Pong.Bat = function(x, y, width, height, speed) {
 }
 
 Pong.Game = function(tablewidth, tableheight, speed) {
- this.tablewidth = tablewidth;
- this.tableheight = tableheight;
- this.batwidth = tablewidth / 40;
- this.batheight = tableheight / 4;
- this.balldiameter = tablewidth / 30;
- this.speed = speed;
- this.score = [0, 0];
- this.ballDirection = [0, 0]; // [x component, y component] of direction vector
+  var self = this;
+  self.tablewidth = tablewidth;
+  self.tableheight = tableheight;
+  self.batwidth = tablewidth / 40;
+  self.batheight = tableheight / 4;
+  self.balldiameter = tablewidth / 30;
+  self.speed = speed;
+  self.score = [0, 0];
+  self.ballDirection = [0, 0]; // [x component, y component] of direction vector
+  self.leftbatdirection = 0;
+  self.rightbatdirection = 0;
+  self.leftkeys = ['q', 'a'];
+  self.rightkeys = ['p', 'l'];
 
- this.bats = { 
-  left: new Pong.Bat(0, 0, this.batwidth, this.batheight, this.speed),
-  right: new Pong.Bat(this.tablewidth - this.batwidth, this.tableheight - this.batheight, this.batwidth, this.batheight, this.speed)
- }
+  self.bats = { 
+    left: new Pong.Bat(0, 0, self.batwidth, self.batheight, self.speed),
+    right: new Pong.Bat(self.tablewidth - self.batwidth, self.tableheight - self.batheight, self.batwidth, self.batheight, self.speed)
+  }
  
- this.table = new Pong.Table(this.tablewidth, this.tableheight);
+  self.table = new Pong.Table(self.tablewidth, self.tableheight);
  
- this.ball = new Pong.Ball(this.tablewidth / 2, this.tableheight / 2, this.ballradius, this.speed);
+  self.ball = new Pong.Ball(self.tablewidth / 2, self.tableheight / 2, self.ballradius, self.speed);
 
- this.start = function() { 
-   this.score = [0, 0];
-   this.ballDirection = [1, 0];
- }
+  self.start = function() { 
+    self.score = [0, 0];
+    self.ballDirection = [1, 0];
+  }
 
- this.play = function() {
-   // move bats
+  self.play = function() {
+    // move bats
+    if (self.leftbatdirection = -1){
+      self.bats.left.Position.y -= self.bats.left.speed;
+    }
    // move ball
    // check for goal    
- }
+  }
 
- this.keyDown = function(evt) {
-   // process key press
- }
+  self.keyDown = function(evt) {
+   switch(evt.key) {
+      case self.leftkeys[0]: 
+        self.leftbatdirection = -1; // left up
+       break;
+      case self.leftkeys[1]:
+        self.leftbatdirection = 1; // left down
+       break;
+      case self.rightkeys[0]:
+        self.rightbatdirection = -1; // right up
+       break;
+      case self.rightkeys[1]:
+        self.rightbatdirection = 1; // right down
+       break;
+   }
+  }
 
- this.keyUp = function(evt) {
-  // process key release
- }
-
+  self.keyUp = function(evt) {
+   switch(evt.key) {
+      case self.leftkeys[0]: 
+      case self.leftkeys[1]:
+        self.leftbatdirection = 0; // left stop
+        console.log('left stop');
+       break;
+      case self.rightkeys[0]:
+      case self.rightkeys[1]:
+        self.rightbatdirection = 0; // right stop
+        console.log('right stop');
+       break;
+   }
+  }
 }

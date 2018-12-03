@@ -38,17 +38,22 @@ Pong.htmlRenderer = function(pongGame, window, container) {
       "position": "absolute", 
       "z-index": "3", 
       "background-color": "white",
-      "top": pongGame.ball.y, 
-      "left": pongGame.ball.x });
+      "top": pongGame.ball.position.y, 
+      "left": pongGame.ball.position.x });
   self.container.append(self.ball);
 
  self.render = function () {
-    // render the table
-    // render the bats
-    // render the ball
     self.leftBat.css({
       "top": pongGame.bats.left.position.y,
       "left": pongGame.bats.left.position.x
+    });
+    self.rightBat.css({
+      "top": pongGame.bats.right.position.y,
+      "left": pongGame.bats.right.position.x        
+    });
+    self.ball.css({
+      "top": pongGame.ball.position.y, 
+      "left": pongGame.ball.position.x
     });
  };
 }

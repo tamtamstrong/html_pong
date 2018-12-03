@@ -42,8 +42,8 @@ Pong.Game = function(tablewidth, tableheight, speed) {
   self.rightkeys = ['p', 'l'];
 
   self.bats = { 
-    left: new Pong.Bat(0, 0, self.batwidth, self.batheight, self.speed),
-    right: new Pong.Bat(self.tablewidth - self.batwidth, self.tableheight - self.batheight, self.batwidth, self.batheight, self.speed)
+    left: new Pong.Bat(0, self.tableheight / 2 - self.batheight / 2, self.batwidth, self.batheight, self.speed),
+    right: new Pong.Bat(self.tablewidth - self.batwidth, self.tableheight / 2 - self.batheight / 2, self.batwidth, self.batheight, self.speed)
   }
  
   self.table = new Pong.Table(self.tablewidth, self.tableheight);
@@ -63,8 +63,21 @@ Pong.Game = function(tablewidth, tableheight, speed) {
     else if (self.leftbatdirection == 1){
       self.bats.left.position.y += self.bats.left.speed;
     }
-   // move ball
-   // check for goal    
+    if (self.rightbatdirection == -1){
+      console.log("right up");
+      self.bats.right.position.y -= self.bats.right.speed;
+    }
+    else if (self.rightbatdirection == 1){
+      console.log("right down");
+      self.bats.right.position.y += self.bats.right.speed;
+    }
+
+    // move ball
+    self.ball.position.x += (self.ballDirection[0] * self.ball.speed);
+    self.ball.position.y += (self.ballDirection[1] * self.ball.speed);
+
+    // check for goal    
+
   }
 
   self.keyDown = function(evt) {

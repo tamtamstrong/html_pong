@@ -14,7 +14,7 @@
       <script src="PongHTMLRenderer.js" type="text/javascript"></script>
       <script>
         $(function() {        
-        	var pong = new Pong.Game(800, 300, 2);
+        	var pong = new Pong.Game(800, 300, 6);
           document.addEventListener('keydown', pong.keyDown, true);
           document.addEventListener('keyup', pong.keyUp, true);
         	var pongRenderer = new Pong.htmlRenderer(pong, window, $('#pongContainer'));

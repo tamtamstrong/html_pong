@@ -59,24 +59,43 @@ Pong.Game = function(tablewidth, tableheight, speed) {
     // move bats
     if (self.leftbatdirection == -1){
       self.bats.left.position.y -= self.bats.left.speed;
+      if (self.bats.left.position.y < 0) {
+        self.bats.left.position.y = 0;
+      }
     }
     else if (self.leftbatdirection == 1){
       self.bats.left.position.y += self.bats.left.speed;
+      if (self.bats.left.position.y > self.tableheight - self.bats.left.size.height) {
+        self.bats.left.position.y = self.tableheight - self.bats.left.size.height;
+      }
     }
     if (self.rightbatdirection == -1){
       console.log("right up");
       self.bats.right.position.y -= self.bats.right.speed;
+      if (self.bats.right.position.y < 0) {
+        self.bats.right.position.y = 0;
+      }
     }
     else if (self.rightbatdirection == 1){
       console.log("right down");
       self.bats.right.position.y += self.bats.right.speed;
+      if (self.bats.right.position.y > self.tableheight - self.bats.right.size.height) {
+        self.bats.right.position.y = self.tableheight - self.bats.right.size.height;
+      }
     }
 
     // move ball
     self.ball.position.x += (self.ballDirection[0] * self.ball.speed);
     self.ball.position.y += (self.ballDirection[1] * self.ball.speed);
 
+    if (self.ball.position.y 
+
     // check for goal    
+
+    // collision detection
+    // bat x = top left corner
+    // bat y = side middle
+    // ball x, y = ball center
 
   }
 
@@ -102,12 +121,10 @@ Pong.Game = function(tablewidth, tableheight, speed) {
       case self.leftkeys[0]: 
       case self.leftkeys[1]:
         self.leftbatdirection = 0; // left stop
-        console.log('left stop');
        break;
       case self.rightkeys[0]:
       case self.rightkeys[1]:
         self.rightbatdirection = 0; // right stop
-        console.log('right stop');
        break;
    }
   }

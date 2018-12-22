@@ -107,21 +107,22 @@ Pong.Game = function(tablewidth, tableheight, speed) {
       self.ballDirection[1] *= -1;
     }
 
-   if ( ballBottom > leftBatTop
+    if ( ballBottom > leftBatTop
        && ballLeft < leftBatRight
        && ballTop <= leftBatBottom ) {
       self.ballDirection[0] *= -1;
       self.ballDirection[1] *= -1;
-   }
+    }
 
-
-    // check for goal    
-
-    // collision detection
-    // bat x = top left corner
-    // bat y = side middle
-    // ball x, y = ball center
-
+    if ( ballTop < 0 || ballBottom > self.tableheight ) {
+        self.ballDirection[1] *= -1;
+    }
+    if ( ballLeft < 0 ) {
+      console.log('point for right!');  
+    }
+    if (ballRight > self.tablewidth) {
+      console.log('point for left');
+    } 
   }
 
   self.keyDown = function(evt) {

@@ -18,6 +18,7 @@ Pong.Ball = function(x, y, d, speed) {
  this.position = new Pong.Position(x, y);
  this.diameter = d;
  this.speed = speed;
+ this.radius = d / 2;
 }
 
 Pong.Bat = function(x, y, width, height, speed) {
@@ -88,7 +89,31 @@ Pong.Game = function(tablewidth, tableheight, speed) {
     self.ball.position.x += (self.ballDirection[0] * self.ball.speed);
     self.ball.position.y += (self.ballDirection[1] * self.ball.speed);
 
-    if (self.ball.position.y 
+    var ballRight = self.ball.position.x + self.ball.diameter;
+    var ballBottom = self.ball.position.y + self.ball.diameter;
+    var ballTop = self.ball.position.y;
+    var ballLeft = self.ball.position.x;
+    var rightBatLeft = self.bats.right.position.x;
+    var rightBatBottom = self.bats.right.position.y + self.bats.right.size.height;
+    var rightBatTop = self.bats.right.position.y;
+    var leftBatTop = self.bats.left.position.y;
+    var leftBatBottom = self.bats.left.position.y + self.bats.left.size.height;
+    var leftBatRight = self.bats.left.position.x + self.bats.left.size.width;
+
+    if ( ballBottom > rightBatTop 
+        && ballRight > rightBatLeft
+        && ballTop  <= rightBatBottom ) {
+      self.ballDirection[0] *= -1;
+      self.ballDirection[1] *= -1;
+    }
+
+   if ( ballBottom > leftBatTop
+       && ballLeft < leftBatRight
+       && ballTop <= leftBatBottom ) {
+      self.ballDirection[0] *= -1;
+      self.ballDirection[1] *= -1;
+   }
+
 
     // check for goal    
 

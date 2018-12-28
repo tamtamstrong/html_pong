@@ -32,7 +32,7 @@ Pong.Game = function(tablewidth, tableheight, speed) {
   self.tablewidth = tablewidth;
   self.tableheight = tableheight;
   self.batwidth = tablewidth / 40;
-  self.batheight = tableheight / 4;
+  self.batheight = tableheight / 6;
   self.balldiameter = tablewidth / 30;
   self.speed = speed;
   self.score = [0, 0];
@@ -50,6 +50,8 @@ Pong.Game = function(tablewidth, tableheight, speed) {
   self.table = new Pong.Table(self.tablewidth, self.tableheight);
  
   self.ball = new Pong.Ball(self.tablewidth / 2, self.tableheight / 2, self.balldiameter, self.speed);
+
+  self.scoreChangeCallback;
 
   self.start = function() { 
     self.score = [0, 0];
@@ -71,14 +73,12 @@ Pong.Game = function(tablewidth, tableheight, speed) {
       }
     }
     if (self.rightbatdirection == -1){
-      console.log("right up");
       self.bats.right.position.y -= self.bats.right.speed;
       if (self.bats.right.position.y < 0) {
         self.bats.right.position.y = 0;
       }
     }
     else if (self.rightbatdirection == 1){
-      console.log("right down");
       self.bats.right.position.y += self.bats.right.speed;
       if (self.bats.right.position.y > self.tableheight - self.bats.right.size.height) {
         self.bats.right.position.y = self.tableheight - self.bats.right.size.height;
@@ -100,28 +100,71 @@ Pong.Game = function(tablewidth, tableheight, speed) {
     var leftBatBottom = self.bats.left.position.y + self.bats.left.size.height;
     var leftBatRight = self.bats.left.position.x + self.bats.left.size.width;
 
+    // ball + right bat
     if ( ballBottom > rightBatTop 
         && ballRight > rightBatLeft
         && ballTop  <= rightBatBottom ) {
-      self.ballDirection[0] *= -1;
-      self.ballDirection[1] *= -1;
+      if (self.rightbatdirection == 1) {
+        self.ballDirection[0] = -1;
+        self.ballDirection[1] = -1;
+      }
+      else if (self.rightbatdirection == -1) {
+        self.ballDirection[0] = -1;
+        self.ballDirection[1] = 1;
+      }
+      else {
+        self.ballDirection[0] *= -1;
+        self.ballDirection[1] *= -1;
+      }
     }
 
+    // ball + left bat
     if ( ballBottom > leftBatTop
        && ballLeft < leftBatRight
        && ballTop <= leftBatBottom ) {
-      self.ballDirection[0] *= -1;
-      self.ballDirection[1] *= -1;
+      if (self.leftbatdirection == 1) {
+        self.ballDirection[0] = 1;
+        self.ballDirection[1] = -1;
+      }
+      else if (self.leftbatdirection == -1) {
+        self.ballDirection[0] = 1;
+        self.ballDirection[1] = 1;
+      }
+      else {
+        self.ballDirection[0] *= -1;
+        self.ballDirection[1] *= -1;
+      }
     }
 
+    // ball + top and bottom
     if ( ballTop < 0 || ballBottom > self.tableheight ) {
         self.ballDirection[1] *= -1;
     }
-    if ( ballLeft < 0 ) {
+
+    // goals
+    if (ballLeft < 0) {
       console.log('point for right!');  
+      self.bats.left.position.x = 0;
+      self.bats.left.position.y = self.tableheight / 2 - self.batheight / 2;
+      self.bats.right.position.x = self.tablewidth - self.batwidth;
+      self.bats.right.position.y = self.tableheight / 2 - self.batheight / 2;
+      self.ball.position.x = self.tablewidth / 2;
+      self.ball.position.y = self.tableheight / 2;
+      self.score[1]++;
+      self.balldirection = [1, 0];
+      self.scoreChangeCallback(self.score[0], self.score[1]);
     }
     if (ballRight > self.tablewidth) {
       console.log('point for left');
+      self.bats.left.position.x = 0;
+      self.bats.left.position.y = self.tableheight / 2 - self.batheight / 2;
+      self.bats.right.position.x = self.tablewidth - self.batwidth;
+      self.bats.right.position.y = self.tableheight / 2 - self.batheight / 2;
+      self.ball.position.x = self.tablewidth / 2;
+      self.ball.position.y = self.tableheight / 2;
+      self.score[0]++;
+      self.balldirection = [-1, 0];
+      self.scoreChangeCallback(self.score[0], self.score[1]);
     } 
   }
 

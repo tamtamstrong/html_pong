@@ -18,16 +18,17 @@
 
             // create a renderer
             var render = Render.create({
-                            element: document.body,
-                            engine: engine,
-                            options: {
-                              width: 1400,
-                              height: 600
-                            }
-                            });
+              element: document.body,
+              engine: engine,
+              options: {
+                width: 1400,
+                height: 600,
+                showAngleIndicator: true
+              }
+            });
 
             // create the ball and table
-            var ball = Bodies.circle(700, 200, 20);
+            var ball = Bodies.circle(700, 200, 20, { restitution: 0.9 });
             var table = Bodies.rectangle(700, 590, 1300, 20, { isStatic: true });
 
             // add all of the bodies to the world

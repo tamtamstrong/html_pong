@@ -3,27 +3,41 @@
    <head>
       <meta charset="utf-8"/>
       <title>Pong</title>
-      <script src="jquery-2.1.1.min.js" type="text/javascript"></script>
+      <script src="matter.js" type="text/javascript"></script>
    <head>
    <body>
-      <div id="mainDiv">
-        <div id="pongContainer"></div>
-      </div>
-      <script src="pong.js" type="text/javascript"></script>
-      <script src="PongHTMLRenderer.js" type="text/javascript"></script>
       <script>
-        $(function() {        
-        	var pong = new Pong.Game(800, 300, 16);
-          document.addEventListener('keydown', pong.keyDown, true);
-          document.addEventListener('keyup', pong.keyUp, true);
-          pong.scoreChangeCallback = function(left, right) {
-            document.title = left + " : " + right;
-          };
-        	var pongRenderer = new Pong.htmlRenderer(pong, window, $('#pongContainer'));
-          window.setInterval(pongRenderer.render, 100);
-          pong.start();
-          window.setInterval(pong.play, 100);
-        });
+            // module aliases
+            var Engine = Matter.Engine,
+              Render = Matter.Render,
+              World = Matter.World,
+              Bodies = Matter.Bodies;
+
+            // create an engine
+            var engine = Engine.create();
+
+            // create a renderer
+            var render = Render.create({
+                            element: document.body,
+                            engine: engine,
+                            options: {
+                              width: 1400,
+                              height: 600
+                            }
+                            });
+
+            // create the ball and table
+            var ball = Bodies.circle(700, 200, 20);
+            var table = Bodies.rectangle(700, 590, 1300, 20, { isStatic: true });
+
+            // add all of the bodies to the world
+            World.add(engine.world, [ball, table]);
+
+            // run the engine
+            Engine.run(engine);
+
+            // run the renderer
+            Render.run(render);
       </script>
    </body>   
 </html>

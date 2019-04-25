@@ -45,12 +45,14 @@
            render.mouse = mouse;
 
             // create the ball and table
-            var ball = Bodies.circle(700, 200, 20, { restitution: 0.9, collisionFilter: { group: 1 } });
-            var table = Bodies.rectangle(700, 590, 1300, 20, { isStatic: true, collisionFilter: { group: 1 } });
-            var wall = Bodies.rectangle(1250, 300, 10, 590, { isStatic: true, collisionFilter: { group: 1 } });
-
+            var ball = Bodies.circle(700, 200, 20, { density: 1, restitution: 0.9, collisionFilter: { group: 1 } });
+            var floor = Bodies.rectangle(700, 590, 2000, 10, { density: 1, isStatic: true, collisionFilter: { group: 1 } });
+            var wall = Bodies.rectangle(1250, 300, 10, 600, { density: 1, isStatic: true, collisionFilter: { group: 1 } });
+			var roof = Bodies.rectangle(0, 20, 3000, 10, { density: 1, isStatic: true, collisionFilter: { group: 1 } });
+			var leftie = Bodies.rectangle(20, 0, 10, 3000, { density: 1, isStatic: true, collisionFilter: { group: 1 } });
+			
             // add all of the bodies to the world
-            World.add(engine.world, [ball, table, wall]);
+            World.add(engine.world, [ball, floor, wall, roof, leftie]);
 
             // run the engine
             Engine.run(engine);

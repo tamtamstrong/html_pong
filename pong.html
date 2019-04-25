@@ -11,7 +11,9 @@
             var Engine = Matter.Engine,
               Render = Matter.Render,
               World = Matter.World,
-              Bodies = Matter.Bodies;
+              Bodies = Matter.Bodies,
+              MouseConstraint = Matter.MouseConstraint,
+              Mouse = Matter.Mouse;
 
             // create an engine
             var engine = Engine.create();
@@ -27,12 +29,28 @@
               }
             });
 
+            var mouse = Mouse.create(render.canvas),
+              mouseConstraint = MouseConstraint.create(engine, {
+                mouse: mouse,
+                constraint: {
+                  stiffness: 0.2,
+                  render: {
+                    visible: false
+                  }
+                }
+            });
+
+           World.add(engine.world, mouseConstraint);
+
+           render.mouse = mouse;
+
             // create the ball and table
-            var ball = Bodies.circle(700, 200, 20, { restitution: 0.9 });
-            var table = Bodies.rectangle(700, 590, 1300, 20, { isStatic: true });
+            var ball = Bodies.circle(700, 200, 20, { restitution: 0.9, collisionFilter: { group: 1 } });
+            var table = Bodies.rectangle(700, 590, 1300, 20, { isStatic: true, collisionFilter: { group: 1 } });
+            var wall = Bodies.rectangle(1250, 300, 10, 590, { isStatic: true, collisionFilter: { group: 1 } });
 
             // add all of the bodies to the world
-            World.add(engine.world, [ball, table]);
+            World.add(engine.world, [ball, table, wall]);
 
             // run the engine
             Engine.run(engine);
